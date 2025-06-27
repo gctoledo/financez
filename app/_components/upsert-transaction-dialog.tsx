@@ -259,7 +259,7 @@ const UpsertTransactionDialog = ({
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">
+              <Button type="submit" disabled={form.formState.isSubmitting}>
                 {isUpdate ? "Atualizar" : "Adicionar"}
               </Button>
             </DialogFooter>
