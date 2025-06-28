@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Navbar from "./_components/navbar";
 
 const Home = async () => {
   const { userId } = await auth();
@@ -10,7 +11,7 @@ const Home = async () => {
 
   return (
     <div>
-      <p className="flex items-center justify-center text-blue-500">Home</p>
+      <Navbar />
     </div>
   );
 };
