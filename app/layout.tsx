@@ -3,6 +3,7 @@ import "./globals.css";
 import { Mulish } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { ptBR } from "@clerk/localizations";
 
 const mulish = Mulish({
   subsets: ["latin-ext"],
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ClerkProvider appearance={{ baseTheme: dark }}>
+      <ClerkProvider appearance={{ baseTheme: dark }} localization={ptBR}>
         <body className={`${mulish.className} antialiased`}>{children}</body>
       </ClerkProvider>
     </html>
