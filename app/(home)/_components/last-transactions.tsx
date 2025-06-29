@@ -3,11 +3,10 @@ import { CardContent, CardHeader, CardTitle } from "@/app/_components/ui/card";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
 import { TRANSACTION_PAYMENT_METHOD_ICONS } from "@/app/_constants/transactions";
 import { formatCurrency } from "@/app/utils/currency";
-import { Transaction, TransactionType } from "@prisma/client";
+import { SanitizedTransaction } from "@/app/utils/sanitize-transaction";
+import { TransactionType } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-
-type SanitizedTransaction = Omit<Transaction, "amount"> & { amount: number };
 
 interface LastTransactionsProps {
   lastTransactions: SanitizedTransaction[];

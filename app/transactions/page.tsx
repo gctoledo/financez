@@ -6,6 +6,7 @@ import Navbar from "../_components/navbar";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ScrollArea } from "../_components/ui/scroll-area";
+import { sanitizeTransaction } from "../utils/sanitize-transaction";
 
 const TransactionsPage = async () => {
   const { userId } = await auth();
@@ -14,11 +15,20 @@ const TransactionsPage = async () => {
     redirect("/login");
   }
 
-  const transactions = await db.transaction.findMany({
-    where: {
-      userId,
-    },
-  });
+  const transactions = await db.transaction
+    .findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        date: "desc",
+      },
+    })
+    .then((transactions) => {
+      return transactions.map((transaction) =>
+        sanitizeTransaction(transaction),
+      );
+    });
 
   return (
     <>

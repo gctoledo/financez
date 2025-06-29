@@ -1,6 +1,5 @@
 "use client";
 
-import { Transaction } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import TransactionTypeBadge from "../_components/type-badge";
 import { Button } from "../../_components/ui/button";
@@ -11,8 +10,9 @@ import {
 } from "../../_constants/transactions";
 import EditTransactionButton from "../_components/edit-transaction-button";
 import { formatCurrency } from "@/app/utils/currency";
+import { SanitizedTransaction } from "@/app/utils/sanitize-transaction";
 
-export const transactionColumns: ColumnDef<Transaction>[] = [
+export const transactionColumns: ColumnDef<SanitizedTransaction>[] = [
   {
     accessorKey: "name",
     header: "Nome",
