@@ -1,3 +1,5 @@
+"use client";
+
 import { ChartBar, CreditCard, Menu, Signature, X } from "lucide-react";
 import Image from "next/image";
 import {

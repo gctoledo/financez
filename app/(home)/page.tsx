@@ -33,34 +33,32 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   const dashboard = await getDashboard(month);
 
   return (
-    <div>
-      <>
-        <Navbar />
+    <>
+      <Navbar />
 
-        <div className="space-y-6 p-6">
-          <div className="flex justify-between">
-            <h1 className="text-2xl font-bold">Dashboard</h1>
-            <TimeSelect />
-          </div>
-
-          <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[2fr_1fr]">
-            <div className="flex flex-col gap-6">
-              <SummaryCards {...dashboard} />
-
-              <div className="flex flex-col gap-6 lg:grid lg:grid-cols-3 lg:grid-rows-1">
-                <TransactionsPieChart {...dashboard} />
-
-                <ExpensesPerCategory
-                  expensesPerCategory={dashboard.totalExpensePerCategory}
-                />
-              </div>
-            </div>
-
-            <LastTransactions lastTransactions={dashboard.lastTransactions} />
-          </div>
+      <div className="flex flex-col gap-6 p-6 lg:h-full lg:overflow-hidden">
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <TimeSelect />
         </div>
-      </>
-    </div>
+
+        <div className="flex flex-col gap-6 lg:grid lg:h-full lg:grid-cols-[2fr_1fr] lg:overflow-hidden">
+          <div className="flex flex-col gap-6 lg:overflow-hidden">
+            <SummaryCards {...dashboard} />
+
+            <div className="flex flex-col gap-6 lg:grid lg:h-full lg:grid-cols-3 lg:grid-rows-1 lg:overflow-hidden">
+              <TransactionsPieChart {...dashboard} />
+
+              <ExpensesPerCategory
+                expensesPerCategory={dashboard.totalExpensePerCategory}
+              />
+            </div>
+          </div>
+
+          <LastTransactions lastTransactions={dashboard.lastTransactions} />
+        </div>
+      </div>
+    </>
   );
 };
 
