@@ -30,9 +30,13 @@ const TransactionsPage = async () => {
           <AddTransactionButton />
         </div>
 
-        <ScrollArea>
+        <ScrollArea className="hidden lg:block">
           <DataTable columns={transactionColumns} data={transactions} />
         </ScrollArea>
+
+        <div className="block lg:hidden">
+          <DataTable columns={transactionColumns} data={transactions} />
+        </div>
       </div>
     </>
   );
