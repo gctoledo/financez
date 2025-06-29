@@ -39,11 +39,11 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
             <TimeSelect />
           </div>
 
-          <div className="grid grid-cols-[2fr_1fr]">
+          <div className="md:grid md:grid-cols-[2fr_1fr]">
             <div className="flex flex-col gap-6">
               <SummaryCards {...dashboard} />
 
-              <div className="grid grid-cols-3 grid-rows-1 gap-6">
+              <div className="grid grid-cols-1 grid-rows-1 gap-6 lg:grid-cols-3">
                 <TransactionsPieChart {...dashboard} />
               </div>
             </div>

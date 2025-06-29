@@ -28,7 +28,7 @@ const SummaryCards = async ({
         size="large"
       />
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="flex flex-col gap-6 md:grid md:grid-cols-3">
         <SummaryCard
           icon={<PiggyBankIcon size={16} />}
           title="Investido"
