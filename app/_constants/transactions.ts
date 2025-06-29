@@ -12,7 +12,6 @@ export const TRANSACTION_CATEGORY_LABELS = {
   HOUSING: "Moradia",
   OTHER: "Outros",
   SALARY: "Salário",
-  RECEIPT: "Recebimento",
   TRANSPORTATION: "Transporte",
   UTILITY: "Utilidades",
 };

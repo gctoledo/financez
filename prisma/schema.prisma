@@ -40,7 +40,6 @@ enum TransactionCategory {
   HEALTH
   UTILITY
   SALARY
-  RECEIPT
   EDUCATION
   OTHER
 }
