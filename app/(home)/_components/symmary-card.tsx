@@ -1,5 +1,6 @@
 import AddTransactionButton from "@/app/_components/add-transaction-button";
 import { Card, CardContent, CardHeader } from "@/app/_components/ui/card";
+import { formatCurrency } from "@/app/utils/currency";
 import { ReactNode } from "react";
 
 interface SummaryCardProps {
@@ -28,12 +29,9 @@ const SummaryCard = ({
 
       <CardContent className="flex justify-between">
         <p
-          className={`${size === "small" ? "text-lg font-bold lg:text-2xl" : "text-2xl lg:text-4xl"} font-bold`}
+          className={`${size === "small" ? "text-lg font-bold md:text-xl lg:text-2xl" : "text-2xl md:text-3xl lg:text-4xl"} font-bold`}
         >
-          {Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          }).format(amount)}
+          {formatCurrency(amount)}
         </p>
 
         {size === "large" && <AddTransactionButton />}

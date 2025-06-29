@@ -7,6 +7,7 @@ import { isMatch } from "date-fns";
 import TransactionsPieChart from "./_components/transactions-pie-chart";
 import { getDashboard } from "../_data/get-dashboard";
 import ExpensesPerCategory from "./_components/expenses-per-category";
+import LastTransactions from "./_components/last-transactions";
 
 interface HomeProps {
   searchParams: {
@@ -24,7 +25,9 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   const monthIsInvalid = !month || !isMatch(month, "MM");
 
   if (monthIsInvalid) {
-    redirect("/?month=01");
+    const currentMonth = new Date().getMonth() + 1;
+
+    redirect(`/?month=${currentMonth}`);
   }
 
   const dashboard = await getDashboard(month);
@@ -40,7 +43,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
             <TimeSelect />
           </div>
 
-          <div className="md:grid md:grid-cols-[2fr_1fr]">
+          <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[2fr_1fr]">
             <div className="flex flex-col gap-6">
               <SummaryCards {...dashboard} />
 
@@ -52,6 +55,8 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
                 />
               </div>
             </div>
+
+            <LastTransactions lastTransactions={dashboard.lastTransactions} />
           </div>
         </div>
       </>
