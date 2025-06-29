@@ -59,7 +59,7 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     header: "",
     cell: ({ row: { original: transaction } }) => {
       return (
-        <div className="space-x-1">
+        <div className="flex">
           <EditTransactionButton transaction={transaction} />
 
           <Button variant="ghost" size="icon" className="text-muted-foreground">
