@@ -8,16 +8,34 @@ import { redirect } from "next/navigation";
 import { ScrollArea } from "../_components/ui/scroll-area";
 import { sanitizeTransaction } from "../utils/sanitize-transaction";
 import { canUserAddTransaction } from "../_data/can-user-add-transaction";
+import TablePagination from "../_components/table-pagination";
 
-const TransactionsPage = async () => {
+interface TransactionsPageProps {
+  searchParams: {
+    page?: string;
+  };
+}
+
+const TransactionsPage = async ({ searchParams }: TransactionsPageProps) => {
   const { userId } = await auth();
 
   if (!userId) {
     redirect("/login");
   }
 
+  const PAGE_SIZE = 10;
+  const page = Number(searchParams.page) || 1;
+
+  const totalTransactions = await db.transaction.count({
+    where: {
+      userId,
+    },
+  });
+
   const transactions = await db.transaction
     .findMany({
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
       where: {
         userId,
       },
@@ -45,10 +63,12 @@ const TransactionsPage = async () => {
 
         <ScrollArea className="hidden lg:block">
           <DataTable columns={transactionColumns} data={transactions} />
+          <TablePagination count={totalTransactions} pageSize={PAGE_SIZE} />
         </ScrollArea>
 
         <div className="block lg:hidden">
           <DataTable columns={transactionColumns} data={transactions} />
+          <TablePagination count={totalTransactions} pageSize={PAGE_SIZE} />
         </div>
       </div>
     </>
