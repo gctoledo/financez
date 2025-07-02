@@ -33,7 +33,18 @@ export const generateAiReports = async ({ month }: GenerateAiReportsSchema) => {
     },
   });
 
-  const content = `Gere um relatório com insights sobre as minhas finanças, com dicas e orientações de como melhorar minha vida financeira. Calcule sempre a movimentação de dinheiro total por cada categoria. As transações estão divididas por ponto e vírgula (;). A estrutura de cada uma é {DATA}-{TIPO}-{VALOR}-{CATEGORIA}. São elas:
+  if (transactions.length === 0) {
+    const date = new Date(actDate.getFullYear(), Number(month) - 1);
+    const formatter = new Intl.DateTimeFormat("pt-BR", {
+      month: "long",
+      year: "numeric",
+    });
+    const formatted = formatter.format(date);
+
+    return `Você não possui transação cadastrada no mês de ${formatted}.`;
+  }
+
+  const content = `Gere um relatório com insights sobre as minhas finanças, com dicas e orientações de como melhorar minha vida financeira. Calcule a movimentação de dinheiro total por cada categoria. As transações estão divididas por ponto e vírgula (;). A estrutura de cada uma é {DATA}-{TIPO}-{VALOR}-{CATEGORIA}. São elas:
   ${transactions
     .map(
       (transaction) =>

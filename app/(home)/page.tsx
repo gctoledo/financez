@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Navbar from "../_components/navbar";
 import SummaryCards from "./_components/summary-cards";
 import TimeSelect from "./_components/time-select";
-import { isMatch } from "date-fns";
+import { format, isMatch } from "date-fns";
 import TransactionsPieChart from "./_components/transactions-pie-chart";
 import { getDashboard } from "../_data/get-dashboard";
 import ExpensesPerCategory from "./_components/expenses-per-category";
@@ -26,7 +26,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   const monthIsInvalid = !month || !isMatch(month, "MM");
 
   if (monthIsInvalid) {
-    const currentMonth = new Date().getMonth() + 1;
+    const currentMonth = format(new Date(), "MM");
 
     redirect(`/?month=${currentMonth}`);
   }
