@@ -45,7 +45,7 @@ const AiReportButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
     <Dialog onOpenChange={(isOpen) => !isOpen && setReport(null)}>
       <DialogTrigger asChild>
         <Button variant={"ghost"}>
-          Gerar relatório com IA <BotIcon />
+          Relatório IA <BotIcon />
         </Button>
       </DialogTrigger>
 
