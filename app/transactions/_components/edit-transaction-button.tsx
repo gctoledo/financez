@@ -28,6 +28,7 @@ const EditTransactionButton = ({ transaction }: EditTransactionButtonProps) => {
         setIsOpen={setDialogIsOpen}
         defaultValues={{
           ...transaction,
+          date: new Date(transaction.date),
           amount: Number(transaction.amount),
         }}
         transactionId={transaction.id}
