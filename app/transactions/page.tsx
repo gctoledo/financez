@@ -6,7 +6,6 @@ import Navbar from "../_components/navbar";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ScrollArea } from "../_components/ui/scroll-area";
-import { sanitizeTransaction } from "../utils/sanitize-transaction";
 import { canUserAddTransaction } from "../_data/can-user-add-transaction";
 import TablePagination from "../_components/table-pagination";
 
@@ -32,22 +31,16 @@ const TransactionsPage = async ({ searchParams }: TransactionsPageProps) => {
     },
   });
 
-  const transactions = await db.transaction
-    .findMany({
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE,
-      where: {
-        userId,
-      },
-      orderBy: {
-        date: "desc",
-      },
-    })
-    .then((transactions) => {
-      return transactions.map((transaction) =>
-        sanitizeTransaction(transaction),
-      );
-    });
+  const transactions = await db.transaction.findMany({
+    skip: (page - 1) * PAGE_SIZE,
+    take: PAGE_SIZE,
+    where: {
+      userId,
+    },
+    orderBy: {
+      date: "desc",
+    },
+  });
 
   const userCanAddTransaction = await canUserAddTransaction();
 
@@ -62,12 +55,18 @@ const TransactionsPage = async ({ searchParams }: TransactionsPageProps) => {
         </div>
 
         <ScrollArea className="hidden lg:block">
-          <DataTable columns={transactionColumns} data={transactions} />
+          <DataTable
+            columns={transactionColumns}
+            data={JSON.parse(JSON.stringify(transactions))}
+          />
           <TablePagination count={totalTransactions} pageSize={PAGE_SIZE} />
         </ScrollArea>
 
         <div className="block lg:hidden">
-          <DataTable columns={transactionColumns} data={transactions} />
+          <DataTable
+            columns={transactionColumns}
+            data={JSON.parse(JSON.stringify(transactions))}
+          />
           <TablePagination count={totalTransactions} pageSize={PAGE_SIZE} />
         </div>
       </div>

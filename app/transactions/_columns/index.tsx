@@ -10,9 +10,9 @@ import {
 } from "../../_constants/transactions";
 import EditTransactionButton from "../_components/edit-transaction-button";
 import { formatCurrency } from "@/app/utils/currency";
-import { SanitizedTransaction } from "@/app/utils/sanitize-transaction";
+import { Transaction } from "@prisma/client";
 
-export const transactionColumns: ColumnDef<SanitizedTransaction>[] = [
+export const transactionColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "name",
     header: "Nome",
